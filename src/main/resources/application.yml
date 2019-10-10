@@ -1,0 +1,9 @@
+server:
+  port: 2234
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/wen?characterEncoding=utf-8&useSSl=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
