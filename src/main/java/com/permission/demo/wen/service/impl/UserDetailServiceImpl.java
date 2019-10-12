@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 /**
  * 项目名称：permission-demo
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * 修改时间： 2019/10/10
  * 修改备注：
  */
+@Service("userDetailsService")
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired

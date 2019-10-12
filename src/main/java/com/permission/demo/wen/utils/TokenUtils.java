@@ -1,6 +1,7 @@
 package com.permission.demo.wen.utils;
 
 import com.permission.demo.wen.entity.User;
+import com.permission.demo.wen.entity.UserDetailImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -65,7 +66,7 @@ public class TokenUtils {
      */
     public static boolean isExpiration(String token) {
         Claims claims = Jwts.parser().setSigningKey(Constants.SECRET).parseClaimsJws(token).getBody();
-        return claims.getExpiration().before(new Date());
+        return claims.getExpiration().after(new Date());
     }
 
     /**
@@ -93,7 +94,7 @@ public class TokenUtils {
      * @author yingx
      * @date 2019/9/26
      */
-    public static boolean validateUser(String username, String token, User user) {
+    public static boolean validateUser(String username, String token, UserDetailImpl user) {
         boolean result = username.equals(user.getUsername()) && isExpiration(token);
         return result;
     }

@@ -16,4 +16,10 @@
         insert into permission_user(username, password, role)
         values(#{username}, #{password}, #{role})
     </insert>
+
+    <select id="getUserByName" resultType="com.permission.demo.wen.entity.User">
+        SELECT username,password,role
+        FROM permission_user
+        WHERE username = #{username}
+    </select>
 </mapper>
