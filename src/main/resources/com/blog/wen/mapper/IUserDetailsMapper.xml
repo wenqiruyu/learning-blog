@@ -46,9 +46,9 @@
         WHERE userRole.role_id = r.id
     </select>
 
-    <insert id="addUser">
-        insert into permission_user(username, password, role)
-        values(#{username}, #{password}, #{role})
+    <insert id="addPermissionUser">
+        insert into permission_user(username, password)
+        values(#{username}, #{password})
     </insert>
 
 </mapper>

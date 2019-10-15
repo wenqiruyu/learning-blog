@@ -112,11 +112,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(1000);
     }
 
-    @Autowired
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    /*@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
 //        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("USER");
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
         auth.eraseCredentials(false);
-    }
+    }*/
 }

@@ -15,4 +15,6 @@ import com.blog.wen.entity.UserDetailsImpl;
 public interface IUserDetailsMapper {
 
     UserDetailsImpl getUserByName(String username);
+
+    void addPermissionUser(UserDetailsImpl userDetails);
 }
