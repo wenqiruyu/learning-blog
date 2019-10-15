@@ -1,7 +1,7 @@
 package com.permission.demo.wen.config;
 
 import com.alibaba.fastjson.JSON;
-import com.permission.demo.wen.entity.UserDetailImpl;
+import com.permission.demo.wen.entity.UserDetailsImpl;
 import com.permission.demo.wen.utils.TokenUtils;
 import com.permission.demo.wen.vo.ResultVO;
 import org.springframework.security.core.Authentication;
@@ -22,7 +22,7 @@ import java.io.IOException;
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        UserDetailImpl userDetails = (UserDetailImpl) authentication.getPrincipal();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         String jwtToken = TokenUtils.getToken(userDetails.getUsername(), false);
 

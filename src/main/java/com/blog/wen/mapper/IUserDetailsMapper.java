@@ -1,6 +1,7 @@
 package com.permission.demo.wen.mapper;
 
 import com.permission.demo.wen.entity.User;
+import com.permission.demo.wen.entity.UserDetailsImpl;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface IUserMapper {
 
     int addUser(User user);
 
-    User getUserByName(String username);
+    UserDetailsImpl getUserByName(String username);
 
     List<User> getUser();
 }

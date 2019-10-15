@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.permission.demo.wen.mapper.IUserMapper">
+    <resultMap id="userResultMap" type="com.permission.demo.wen.entity.UserDetailsImpl">
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="telePhone" jdbcType="VARCHAR" property="telePhone" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="userFace" jdbcType="VARCHAR" property="userFace" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+
+        <collection property="roles" resultMap="rolesMap" />
+    </resultMap>
+
+    <resultMap id="rolesMap" type="com.permission.demo.wen.entity.UserRole">
+        <result column="name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="nameZh" jdbcType="VARCHAR" property="nameZh"/>
+    </resultMap>
+
+    <sql id="permissionUser">
+        id, name, phone, telePhone, address, username, password, userFace, remark
+    </sql>
+
+    <sql id="permissionUserList">
+        userRole.id, userRole.name, userRole.phone, userRole.telePhone, userRole.address,
+        userRole.username, userRole.password, userRole.userFace, userRole.remark
+    </sql>
+
+    <sql id="userRole">
+        user_id, role_id
+    </sql>
+
+    <select id="getUserByName" resultMap="userResultMap">
+        SELECT r.name as roleName, <include refid="permissionUserList" />
+        FROM role r, (
+            SELECT <include refid="userRole" />, permission.<include refid="permissionUser" />
+            FROM user_role, (
+                SELECT <include refid="permissionUser" />
+                FROM permission_user
+                WHERE username = #{username}
+            ) permission
+            WHERE user_id = permission.id
+        ) userRole
+        WHERE userRole.role_id = r.id
+    </select>
+
+    <select id="getUser" resultMap="userResultMap">
+        SELECT username,password,role
+        FROM permission_user
+    </select>
+
+    <insert id="addUser">
+        insert into permission_user(username, password, role)
+        values(#{username}, #{password}, #{role})
+    </insert>
+
+</mapper>

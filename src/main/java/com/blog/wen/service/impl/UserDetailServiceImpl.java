@@ -1,7 +1,7 @@
 package com.permission.demo.wen.service.impl;
 
 import com.permission.demo.wen.entity.User;
-import com.permission.demo.wen.entity.UserDetailImpl;
+import com.permission.demo.wen.entity.UserDetailsImpl;
 import com.permission.demo.wen.mapper.IUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,11 +26,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private IUserMapper userMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User userByName = userMapper.getUserByName(s);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserDetailsImpl userByName = userMapper.getUserByName(username);
         if(userByName == null){
             throw new UsernameNotFoundException("用户不存在哦");
         }
-        return new UserDetailImpl(userByName);
+        return userByName;
     }
 }

@@ -1,22 +1,16 @@
-package com.permission.demo.wen.entity;
-
-import lombok.Data;
+package com.blog.wen.entity;
 
 /**
  * 项目名称：permission-demo
- * 类名称：User
- * 类描述：用户类
+ * 类名称：LoginUser
+ * 类描述：TODO
  * 创建人：yingx
- * 创建时间： 2019/9/30
+ * 创建时间： 2019/10/10
  * 修改人：yingx
- * 修改时间： 2019/9/30
+ * 修改时间： 2019/10/10
  * 修改备注：
  */
-@Data
-public class User {
-
-    /** 编号id*/
-    private Long id;
+public class LoginUser {
 
     /** 用户名*/
     private String username;
@@ -24,19 +18,8 @@ public class User {
     /** 密码*/
     private String password;
 
-    /** 权限*/
-    private String role;
-
     public String getUsername() {
         return username;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setUsername(String username) {
@@ -51,11 +34,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    @Override
+    public String toString() {
+        return "LoginUser{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

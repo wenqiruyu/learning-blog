@@ -1,10 +1,9 @@
-package com.permission.demo.wen.filter;
+package com.blog.wen.filter;
 
+import com.blog.wen.vo.LoginUserVO;
+import com.blog.wen.utils.Constants;
+import com.blog.wen.utils.TokenUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.permission.demo.wen.entity.LoginUser;
-import com.permission.demo.wen.entity.UserDetailImpl;
-import com.permission.demo.wen.utils.Constants;
-import com.permission.demo.wen.utils.TokenUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -43,7 +42,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         try {
-            LoginUser loginUser = new ObjectMapper().readValue(request.getInputStream(), LoginUser.class);
+            LoginUserVO loginUser = new ObjectMapper().readValue(request.getInputStream(), LoginUserVO.class);
             System.out.println(loginUser.toString());
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword(),new ArrayList<>())
