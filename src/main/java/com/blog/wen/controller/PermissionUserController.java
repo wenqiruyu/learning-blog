@@ -2,6 +2,8 @@ package com.blog.wen.controller;
 
 import com.blog.wen.entity.UserDetailsImpl;
 import com.blog.wen.service.IPermissionUserService;
+import com.blog.wen.service.impl.UserDetailServiceImpl;
+import com.blog.wen.vo.LoginUserVO;
 import com.blog.wen.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,13 +31,20 @@ public class PermissionUserController {
     @Autowired
     private IPermissionUserService permissionUserService;
 
-    @PostMapping("/register")
-    public ResultVO registerUser(@RequestBody Map<String,String> registerUser){
+    @Autowired
+    private UserDetailServiceImpl userDetailService;
 
+    @PostMapping("/register")
+    public ResultVO registerUser(@RequestBody LoginUserVO loginUserVO){
+
+        // 判断用户是否存在
+        if (userDetailService.loadUserByUsername(loginUserVO.getUsername()) != null) {
+            return ResultVO.createBySuccessMessage("用户名已存在！");
+        }
         UserDetailsImpl userDetails = new UserDetailsImpl();
-        userDetails.setUsername(registerUser.get("username"));
+        userDetails.setUsername(loginUserVO.getUsername());
         // 对密码进行加密
-        userDetails.setPassword(new BCryptPasswordEncoder().encode(registerUser.get("password")));
+        userDetails.setPassword(new BCryptPasswordEncoder().encode(loginUserVO.getPassword()));
         permissionUserService.addPermissionUser(userDetails);
         return ResultVO.createBySuccess("注册成功！");
     }
