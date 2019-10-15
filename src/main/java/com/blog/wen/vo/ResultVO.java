@@ -1,8 +1,8 @@
-package com.permission.demo.wen.vo;
+package com.blog.wen.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.permission.demo.wen.enums.ResultEnum;
+import com.blog.wen.enums.ResultEnum;
 
 import java.io.Serializable;
 

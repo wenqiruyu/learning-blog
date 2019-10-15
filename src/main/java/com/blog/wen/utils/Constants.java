@@ -1,4 +1,4 @@
-package com.permission.demo.wen.utils;
+package com.blog.wen.utils;
 
 /**
  * 项目名称：permission-demo

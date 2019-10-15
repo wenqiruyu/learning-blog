@@ -1,6 +1,6 @@
-package com.permission.demo.wen.utils;
+package com.blog.wen.utils;
 
-import com.permission.demo.wen.entity.UserDetailsImpl;
+import com.blog.wen.entity.UserDetailsImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -1,7 +1,7 @@
-package com.permission.demo.wen.config;
+package com.blog.wen.config;
 
-import com.permission.demo.wen.filter.AuthenticationFilter;
-import com.permission.demo.wen.filter.AuthorizationFilter;
+import com.blog.wen.filter.CustomUsernamePasswordAuthenticationFilter;
+import com.blog.wen.filter.CustomOncePerRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -36,13 +35,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private AuthorizationFilter authorizationFilter;
+    private AuthenticationEntryPointImpl authenticationEntryPoint;
+
+    @Autowired
+    private AuthenticationSuccessHandlerImpl authenticationSuccessHandler;
+
+    @Autowired
+    private AuthenticationFailureHandlerImpl authenticationFailureHandler;
 
     @Autowired
     private LogoutSuccessHandlerImpl logoutSuccessHandler;
 
-    /*@Autowired
-    private AccessDeniedHandlerImpl accessDeniedHandler;*/
+    @Autowired
+    private AccessDeniedHandlerImpl accessDeniedHandler;
+
+    @Autowired
+    private CustomOncePerRequestFilter customOncePerRequestFilter;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -58,37 +66,50 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-/*        http.authorizeRequests()
-                .antMatchers("/user/getUser")
-                .permitAll()
-                .anyRequest()
+
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/user/*")
                 .authenticated()
+                .anyRequest()
+                .permitAll()
+
+                .and()
+                .cors()
+                .disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+                .and()
+                .httpBasic()
+                .authenticationEntryPoint(authenticationEntryPoint)
+
                 .and()
                 .formLogin()
-                .loginPage("/login")
+//                .loginPage("/login.html")
+//                .loginProcessingUrl("/user/login")
+                .successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler)
                 .permitAll()
+
                 .and()
                 .logout()
-                .permitAll();*/
+                .logoutUrl("/logout")
+                .logoutSuccessHandler(logoutSuccessHandler)
+                .permitAll()
 
-        http.cors().and().csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/user/**")
-                .authenticated()
-                .anyRequest().permitAll();
-//                .and()
-//                .addFilter(new AuthenticationFilter(authenticationManager()))
-//                .addFilter(new AuthorizationFilter(authenticationManager()))
-//                .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)
 
-        http.addFilterAt(new AuthenticationFilter(authenticationManager()),UsernamePasswordAuthenticationFilter.class);
+                .and()
+                .addFilterAt(new CustomUsernamePasswordAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(customOncePerRequestFilter, UsernamePasswordAuthenticationFilter.class)
 
-        http.logout().logoutSuccessHandler(logoutSuccessHandler).and().addFilterBefore(authorizationFilter, AuthenticationFilter.class);
-
-        //关闭基于session的登陆管理模式.
-        http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .rememberMe()
+                .rememberMeParameter("remember-me")
+                .userDetailsService(userDetailsService)
+                .tokenValiditySeconds(1000);
     }
 
     @Autowired

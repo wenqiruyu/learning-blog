@@ -1,7 +1,7 @@
-package com.permission.demo.wen.config;
+package com.blog.wen.config;
 
+import com.blog.wen.vo.ResultVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.permission.demo.wen.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;

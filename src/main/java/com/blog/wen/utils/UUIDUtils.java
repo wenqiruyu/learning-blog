@@ -1,4 +1,4 @@
-package com.permission.demo.wen.utils;
+package com.blog.wen.utils;
 
 import java.util.UUID;
 

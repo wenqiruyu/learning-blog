@@ -1,8 +1,8 @@
-package com.blog.wen.entity;
+package com.blog.wen.vo;
 
 /**
  * 项目名称：permission-demo
- * 类名称：LoginUser
+ * 类名称：LoginUserVO
  * 类描述：TODO
  * 创建人：yingx
  * 创建时间： 2019/10/10
@@ -10,7 +10,7 @@ package com.blog.wen.entity;
  * 修改时间： 2019/10/10
  * 修改备注：
  */
-public class LoginUser {
+public class LoginUserVO {
 
     /** 用户名*/
     private String username;
@@ -36,7 +36,7 @@ public class LoginUser {
 
     @Override
     public String toString() {
-        return "LoginUser{" +
+        return "LoginUserVO{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';

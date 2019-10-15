@@ -1,8 +1,11 @@
 package com.blog.wen.filter;
 
+import com.alibaba.fastjson.JSON;
+import com.blog.wen.enums.ResultEnum;
 import com.blog.wen.vo.LoginUserVO;
 import com.blog.wen.utils.Constants;
 import com.blog.wen.utils.TokenUtils;
+import com.blog.wen.vo.ResultVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +23,7 @@ import java.util.ArrayList;
 
 /**
  * 项目名称：permission-demo
- * 类名称：AuthenticationFilter
+ * 类名称：CustomUsernamePasswordAuthenticationFilter
  * 类描述：TODO
  * 创建人：yingx
  * 创建时间： 2019/10/10
@@ -28,14 +31,13 @@ import java.util.ArrayList;
  * 修改时间： 2019/10/10
  * 修改备注：
  */
-public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class CustomUsernamePasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
 
-    public AuthenticationFilter(AuthenticationManager authenticationManager) {
+    public CustomUsernamePasswordAuthenticationFilter(AuthenticationManager authenticationManager) {
 
         this.authenticationManager = authenticationManager;
-//        super.setFilterProcessesUrl("/user/login");
     }
 
     @Override
@@ -60,6 +62,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         UserDetails userDetail = (UserDetails)authResult.getPrincipal();
         String token = TokenUtils.getToken(userDetail.getUsername(), false);
         response.setHeader("token", Constants.TOKEN_PREFIX + token);
+        response.getWriter().write(JSON.toJSONString(ResultVO.createBySuccess(Constants.TOKEN_PREFIX + token)));
     }
 
     @Override

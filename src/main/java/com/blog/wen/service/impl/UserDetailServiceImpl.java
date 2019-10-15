@@ -1,8 +1,7 @@
-package com.permission.demo.wen.service.impl;
+package com.blog.wen.service.impl;
 
-import com.permission.demo.wen.entity.User;
-import com.permission.demo.wen.entity.UserDetailsImpl;
-import com.permission.demo.wen.mapper.IUserMapper;
+import com.blog.wen.mapper.IUserDetailsMapper;
+import com.blog.wen.entity.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    private IUserMapper userMapper;
+    private IUserDetailsMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -8,10 +8,10 @@
         <version>2.1.8.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.permission.demo.wen</groupId>
-    <artifactId>permission-demo</artifactId>
+    <groupId>com.blog.wen</groupId>
+    <artifactId>learning-blog</artifactId>
     <version>1.0.0</version>
-    <name>permission-demo</name>
+    <name>learning-blog</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

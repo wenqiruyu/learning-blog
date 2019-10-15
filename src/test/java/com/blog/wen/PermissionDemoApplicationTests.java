@@ -1,4 +1,4 @@
-package com.permission.demo.wen;
+package com.blog.wen;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

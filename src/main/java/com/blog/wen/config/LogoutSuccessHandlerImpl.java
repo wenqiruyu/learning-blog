@@ -1,8 +1,8 @@
-package com.permission.demo.wen.config;
+package com.blog.wen.config;
 
 import com.alibaba.fastjson.JSON;
-import com.permission.demo.wen.enums.ResultEnum;
-import com.permission.demo.wen.vo.ResultVO;
+import com.blog.wen.vo.ResultVO;
+import com.blog.wen.enums.ResultEnum;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;

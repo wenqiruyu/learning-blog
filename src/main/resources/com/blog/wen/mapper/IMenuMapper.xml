@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.wen.mapper.IMenuMapper">
+    <resultMap id="menuResultMap" type="com.blog.wen.entity.Menu">
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="path" jdbcType="VARCHAR" property="path" />
+        <result column="component" jdbcType="VARCHAR" property="component" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="iconCls" jdbcType="VARCHAR" property="iconCls" />
+        <result column="keepAlive" jdbcType="INTEGER" property="keepAlive" />
+        <result column="requireAuth" jdbcType="INTEGER" property="requireAuth" />
+        <result column="parentId" jdbcType="INTEGER" property="parentId" />
+
+        <collection property="roles" resultMap="rolesMap" />
+    </resultMap>
+
+    <resultMap id="rolesMap" type="com.blog.wen.entity.UserRole">
+        <result column="name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="nameZh" jdbcType="VARCHAR" property="nameZh"/>
+    </resultMap>
+
+    <sql id="menuList">
+        mr.url, mr.path, mr.component, mr.name, mr.iconCls, mr.keepAlive, mr.requireAuth, mr.parentId
+    </sql>
+
+    <sql id="userRole">
+        user_id, role_id
+    </sql>
+
+    <select id="getAllMenu" resultMap="menuResultMap">
+        SELECT role.name, role.nameZh, <include refid="menuList" />
+        FROM role, (
+            SELECT menu.*,menu_role.role_id
+            FROM menu_role,menu
+            WHERE menu_role.menu_id = menu.id
+        ) mr
+        WHERE mr.role_id = role.id
+    </select>
+
+</mapper>

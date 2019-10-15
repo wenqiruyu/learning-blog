@@ -1,4 +1,4 @@
-package com.permission.demo.wen.entity;
+package com.blog.wen.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

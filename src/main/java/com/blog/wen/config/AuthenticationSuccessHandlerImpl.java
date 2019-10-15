@@ -1,9 +1,9 @@
-package com.permission.demo.wen.config;
+package com.blog.wen.config;
 
 import com.alibaba.fastjson.JSON;
-import com.permission.demo.wen.entity.UserDetailsImpl;
-import com.permission.demo.wen.utils.TokenUtils;
-import com.permission.demo.wen.vo.ResultVO;
+import com.blog.wen.entity.UserDetailsImpl;
+import com.blog.wen.utils.TokenUtils;
+import com.blog.wen.vo.ResultVO;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;

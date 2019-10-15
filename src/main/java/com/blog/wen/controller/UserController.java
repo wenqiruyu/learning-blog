@@ -1,13 +1,8 @@
-package com.permission.demo.wen.controller;
+package com.blog.wen.controller;
 
-import com.permission.demo.wen.entity.User;
-import com.permission.demo.wen.service.IUserService;
-import com.permission.demo.wen.vo.ResultVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.blog.wen.vo.ResultVO;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,34 +16,28 @@ import java.util.Map;
  * 修改备注：
  */
 @RestController
-@RequestMapping("/user")
+//@RequestMapping("/user")
 public class UserController {
-
-    @Autowired
-    private IUserService userService;
-
-    @GetMapping(value = "/getUser")
-    public ResultVO getUser(){
-
-        List<User> user = userService.getUser();
-        return ResultVO.createBySuccess(user);
-    }
-
-    @PostMapping(value = "/login")
-    public ResultVO login(){
-
-        List<User> user = userService.getUser();
-        return ResultVO.createBySuccess(user);
-    }
 
     @PostMapping("/register")
     public ResultVO registerUser(@RequestBody Map<String,String> registerUser){
-        User user = new User();
+        /*User user = new User();
         user.setUsername(registerUser.get("username"));
         // 记得注册的时候把密码加密一下
         user.setPassword(new BCryptPasswordEncoder().encode(registerUser.get("password")));
         user.setRole("ROLE_USER");
-        userService.addUser(user);
+        userService.addUser(user);*/
+        return ResultVO.createBySuccess();
+    }
+
+    @PostMapping("/emp/adv")
+    public ResultVO empAdv(){
+        /*User user = new User();
+        user.setUsername(registerUser.get("username"));
+        // 记得注册的时候把密码加密一下
+        user.setPassword(new BCryptPasswordEncoder().encode(registerUser.get("password")));
+        user.setRole("ROLE_USER");
+        userService.addUser(user);*/
         return ResultVO.createBySuccess();
     }
 }

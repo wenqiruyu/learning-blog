@@ -1,4 +1,4 @@
-package com.permission.demo.wen.config;
+package com.blog.wen.config;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

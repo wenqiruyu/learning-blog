@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.permission.demo.wen.mapper.IUserMapper">
-    <resultMap id="userResultMap" type="com.permission.demo.wen.entity.UserDetailsImpl">
+<mapper namespace="com.blog.wen.mapper.IUserDetailsMapper">
+    <resultMap id="userResultMap" type="com.blog.wen.entity.UserDetailsImpl">
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="phone" jdbcType="VARCHAR" property="phone" />
         <result column="telePhone" jdbcType="VARCHAR" property="telePhone" />
@@ -14,7 +14,7 @@
         <collection property="roles" resultMap="rolesMap" />
     </resultMap>
 
-    <resultMap id="rolesMap" type="com.permission.demo.wen.entity.UserRole">
+    <resultMap id="rolesMap" type="com.blog.wen.entity.UserRole">
         <result column="name" jdbcType="VARCHAR" property="roleName"/>
         <result column="nameZh" jdbcType="VARCHAR" property="nameZh"/>
     </resultMap>
@@ -33,7 +33,7 @@
     </sql>
 
     <select id="getUserByName" resultMap="userResultMap">
-        SELECT r.name as roleName, <include refid="permissionUserList" />
+        SELECT r.name as roleName, r.nameZh, <include refid="permissionUserList" />
         FROM role r, (
             SELECT <include refid="userRole" />, permission.<include refid="permissionUser" />
             FROM user_role, (
@@ -44,11 +44,6 @@
             WHERE user_id = permission.id
         ) userRole
         WHERE userRole.role_id = r.id
-    </select>
-
-    <select id="getUser" resultMap="userResultMap">
-        SELECT username,password,role
-        FROM permission_user
     </select>
 
     <insert id="addUser">

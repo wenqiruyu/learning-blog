@@ -1,4 +1,4 @@
-package com.permission.demo.wen.enums;
+package com.blog.wen.enums;
 
 /**
  * 项目名称：permission-demo
