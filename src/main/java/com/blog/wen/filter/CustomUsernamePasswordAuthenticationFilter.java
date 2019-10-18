@@ -38,6 +38,7 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
     public CustomUsernamePasswordAuthenticationFilter(AuthenticationManager authenticationManager) {
 
         this.authenticationManager = authenticationManager;
+        super.setFilterProcessesUrl("/user/login");
     }
 
     @Override
